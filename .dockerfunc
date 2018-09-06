@@ -158,17 +158,16 @@ chrome(){
 	fi
 
 	del_stopped chrome
-
+	xhost local:root
 	# one day remove /etc/hosts bind mount when effing
 	# overlay support inotify, such bullshit
 	docker run -d \
 		--memory 3gb \
+		--net host \
 		-v /etc/localtime:/etc/localtime:ro \
 		-v /tmp/.X11-unix:/tmp/.X11-unix \
 		-e "DISPLAY=unix${DISPLAY}" \
-		-v "${HOME}/Downloads:/root/Downloads" \
-		-v "${HOME}/Pictures:/root/Pictures" \
-		-v "${HOME}/Torrents:/root/Torrents" \
+		-v "${HOME}/Downloads:/home/chrome/Downloads" \
 		-v "${HOME}/.chrome:/data" \
 		-v /dev/shm:/dev/shm \
 		-v /etc/hosts:/etc/hosts \
@@ -178,12 +177,17 @@ chrome(){
 		--device /dev/video0 \
 		--device /dev/usb \
 		--device /dev/bus/usb \
+		-u chrome \
 		--group-add audio \
 		--group-add video \
 		--name chrome \
-		${DOCKER_REPO_PREFIX}/chrome --user-data-dir=/data \
+		${DOCKER_REPO_PREFIX}/chrome:beta \
+		--user-data-dir="/data" \
 		--proxy-server="$proxy" \
 		--host-resolver-rules="$map" "$args"
+
+# docker run --rm         --memory 3gb -v /etc/localtime:/etc/localtime:ro         -v /tmp/.X11-unix:/tmp/.X11-unix         -e DISPLAY=unix$DISPLAY         -v $HOME/Downloads:/root/Downloads         -v $HOME/Pictures:/root/Pictures         -v $HOME/Torrents:/root/Torrents         -v $HOME/.chrome:/data         -v /dev/shm:/dev/shm         -v /etc/hosts:/etc/hosts         --device /dev/snd         --device /dev/dri         --device /dev/video0         --group-add audio         --group-add video   -u chrome      --name chrome         --security-opt seccomp:/etc/docker/seccomp/chrome.json jess/chrome --user-data-dir=/data test
+
 
 }
 consul(){
@@ -538,6 +542,20 @@ nmap(){
 	docker run --rm -it \
 		--net host \
 		${DOCKER_REPO_PREFIX}/nmap "$@"
+}
+node(){
+	docker run --rm -it \
+		node "$@"
+}
+npm() {
+	docker run --rm -it \
+		node npm "$@"
+}
+yarn() {
+        docker run --rm -it \
+		-v "$PWD":/usr/src/app \
+		-w /usr/src/app \
+                node yarn "$@"
 }
 notify_osd(){
 	del_stopped notify_osd
@@ -908,7 +926,7 @@ terraform(){
 		--log-driver none \
 		-e GOOGLE_APPLICATION_CREDENTIALS \
 		-e SSH_AUTH_SOCK \
-		${DOCKER_REPO_PREFIX}/terraform "$@"
+		${DOCKER_REPO_PREFIX}/terraform:full "$@"
 }
 tor(){
 	del_stopped tor
@@ -1032,7 +1050,7 @@ visualstudio(){
 		-e "DISPLAY=unix${DISPLAY}" \
 		--device /dev/dri \
 		--name visualstudio \
-		${DOCKER_REPO_PREFIX}/vscode
+		${DOCKER_REPO_PREFIX}/vscode "$@"
 }
 alias vscode="visualstudio"
 vlc(){
