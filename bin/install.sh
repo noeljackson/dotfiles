@@ -173,7 +173,7 @@ base_min() {
 		usbmuxd \
 		unzip \
 		xclip \
-		xcompmgr \
+		compton \
 		xz-utils \
 		zip \
 		--no-install-recommends
