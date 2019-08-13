@@ -167,6 +167,9 @@ chrome(){
 		-v /etc/localtime:/etc/localtime:ro \
 		-v /tmp/.X11-unix:/tmp/.X11-unix \
 		-e "DISPLAY=unix${DISPLAY}" \
+                -e GDK_SCALE \
+                -e GDK_DPI_SCALE \
+                -e QT_DEVICE_PIXEL_RATIO \
 		-v "${HOME}/Downloads:/home/chrome/Downloads" \
 		-v "${HOME}/.chrome:/data" \
 		-v /dev/shm:/dev/shm \
@@ -175,13 +178,12 @@ chrome(){
 		--device /dev/snd \
 		--device /dev/dri \
 		--device /dev/video0 \
-		--device /dev/usb \
 		--device /dev/bus/usb \
 		-u chrome \
 		--group-add audio \
 		--group-add video \
 		--name chrome \
-		${DOCKER_REPO_PREFIX}/chrome:beta \
+		${DOCKER_REPO_PREFIX}/chrome:latest \
 		--user-data-dir="/data" \
 		--proxy-server="$proxy" \
 		--host-resolver-rules="$map" "$args"
@@ -543,20 +545,6 @@ nmap(){
 		--net host \
 		${DOCKER_REPO_PREFIX}/nmap "$@"
 }
-node(){
-	docker run --rm -it \
-		node "$@"
-}
-npm() {
-	docker run --rm -it \
-		node npm "$@"
-}
-yarn() {
-        docker run --rm -it \
-		-v "$PWD":/usr/src/app \
-		-w /usr/src/app \
-                node yarn "$@"
-}
 notify_osd(){
 	del_stopped notify_osd
 
@@ -917,7 +905,7 @@ termboy(){
 		--name termboy \
 		${DOCKER_REPO_PREFIX}/nes "/games/${game}.rom"
 }
-terraform(){
+tterraform(){
 	docker run -it --rm \
 		-v "${HOME}:${HOME}:ro" \
 		-v "$(pwd):/usr/src/repo" \
@@ -925,8 +913,9 @@ terraform(){
 		--workdir /usr/src/repo \
 		--log-driver none \
 		-e GOOGLE_APPLICATION_CREDENTIALS \
+		-e AWS_SHARED_CREDENTIALS_FILE \
 		-e SSH_AUTH_SOCK \
-		${DOCKER_REPO_PREFIX}/terraform:full "$@"
+		${DOCKER_REPO_PREFIX}/terraform "$@"
 }
 tor(){
 	del_stopped tor
@@ -1057,10 +1046,10 @@ vlc(){
 	del_stopped vlc
 	relies_on pulseaudio
 
-	docker run -d \
+	docker run \
 		-v /etc/localtime:/etc/localtime:ro \
 		-v /tmp/.X11-unix:/tmp/.X11-unix \
-		-e "DISPLAY=unix${DISPLAY}" \
+		-e DISPLAY=unix${DISPLAY} \
 		-e GDK_SCALE \
 		-e GDK_DPI_SCALE \
 		-e QT_DEVICE_PIXEL_RATIO \
@@ -1068,8 +1057,9 @@ vlc(){
 		-e PULSE_SERVER=pulseaudio \
 		--group-add audio \
 		--group-add video \
-		-v "${HOME}/Torrents:/home/vlc/Torrents" \
+		-v "$(pwd):/home/vlc/" \
 		--device /dev/dri \
+		--device /dev/snd:/dev/snd \
 		--name vlc \
 		${DOCKER_REPO_PREFIX}/vlc
 }
@@ -1150,3 +1140,16 @@ yubico_piv_tool(){
 		${DOCKER_REPO_PREFIX}/yubico-piv-tool bash
 }
 alias yubico-piv-tool="yubico_piv_tool"
+zoom(){
+	docker run -d --rm \
+ 	-v /tmp/.X11-unix:/tmp/.X11-unix \
+ 	-e DISPLAY=unix${DISPLAY} \
+	--device /dev/video0 \
+	--device /dev/video1 \
+	--device /dev/snd:/dev/snd \
+	--device /dev/dri \
+	--device /dev/vga_arbiter \
+	-v /dev/shm:/dev/shm \
+	--name zoom \
+	${DOCKER_REPO_PREFIX}/zoom-us
+}
