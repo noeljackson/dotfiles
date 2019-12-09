@@ -26,6 +26,10 @@ del_stopped(){
 		docker rm "$name"
 	fi
 }
+rmctr(){
+	# shellcheck disable=SC2068
+	docker rm -f $@ 2>/dev/null || true
+}
 relies_on(){
 	for container in "$@"; do
 		local state
@@ -274,7 +278,7 @@ dgcloud(){
 	docker run --rm -it \
 		-v "${HOME}/.gcloud:/root/.config/gcloud" \
 		-v "${HOME}/.ssh:/root/.ssh:ro" \
-		-v "$(which docker):/usr/bin/docker" \
+		-v "$(command -v docker):/usr/bin/docker" \
 		-v /var/run/docker.sock:/var/run/docker.sock \
 		--name gcloud \
 		${DOCKER_REPO_PREFIX}/gcloud "$@"
@@ -565,6 +569,14 @@ notify_send(){
 	local args=${*:2}
 	docker exec -i notify_osd notify-send "$1" "${args}"
 }
+now(){
+	docker run -it --rm \
+		-v "${HOME}/.now:/root/.now" \
+		-v "$(pwd):/usr/src/repo:ro" \
+		--workdir /usr/src/repo \
+		--log-driver none \
+		${DOCKER_REPO_PREFIX}/now "$@"
+}
 opensnitch(){
 	del_stopped opensnitchd
 	del_stopped opensnitch
@@ -606,6 +618,39 @@ opensnitch(){
 		--net host \
 		--name opensnitch \
 		${DOCKER_REPO_PREFIX}/opensnitch
+}
+osquery(){
+	rmctr osquery
+
+	docker run -d --restart always \
+		-v /etc/localtime:/etc/localtime:ro \
+		-v /var/run/docker.sock:/var/run/docker.sock \
+		-v /etc/os-release:/etc/os-release:ro \
+		--net host \
+		--ipc host \
+		--pid host \
+		-e OSQUERY_ENROLL_SECRET \
+		--name osquery \
+		--privileged \
+		${DOCKER_REPO_PREFIX}/osquery \
+		--verbose \
+		--enroll_secret_env=OSQUERY_ENROLL_SECRET \
+		--docker_socket=/var/run/docker.sock \
+		--host_identifier=hostname \
+		--tls_hostname="${OSQUERY_DOMAIN}" \
+		--enroll_tls_endpoint=/api/v1/osquery/enroll \
+		--config_plugin=tls \
+		--config_tls_endpoint=/api/v1/osquery/config \
+		--config_tls_refresh=10 \
+		--disable_distributed=false \
+		--distributed_plugin=tls \
+		--distributed_interval=10 \
+		--distributed_tls_max_attempts=3 \
+		--distributed_tls_read_endpoint=/api/v1/osquery/distributed/read \
+		--distributed_tls_write_endpoint=/api/v1/osquery/distributed/write \
+		--logger_plugin=tls \
+		--logger_tls_endpoint=/api/v1/osquery/log \
+		--logger_tls_period=10
 }
 pandoc(){
 	local file=${*: -1}
@@ -1014,6 +1059,17 @@ virsh(){
 		--log-driver none \
 		--net container:kvm \
 		${DOCKER_REPO_PREFIX}/libvirt-client "$@"
+}
+virtualbox(){
+	del_stopped virtualbox
+
+	docker run -d \
+		-v /etc/localtime:/etc/localtime:ro \
+		-v /tmp/.X11-unix:/tmp/.X11-unix \
+		-e "DISPLAY=unix${DISPLAY}" \
+		--privileged \
+		--name virtualbox \
+		${DOCKER_REPO_PREFIX}/virtualbox
 }
 virt_viewer(){
 	relies_on kvm
