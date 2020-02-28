@@ -111,15 +111,25 @@ setup_sources() {
 	# cat <<-EOF > /etc/apt/sources.list.d/google-cloud-sdk.list
 	# deb http://packages.cloud.google.com/apt $CLOUD_SDK_REPO main
 	# EOF
-	echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-
+	cat <<-EOF > /etc/apt/sources.list.d/google-cloud-sdk.list
+	deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt $CLOUD_SDK_REPO main
+	EOF
+	
 	# Import the Google Cloud Platform public key
 	curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
+	
+	# Add tarsnap as package source
+	touch /usr/share/keyrings/tarsnap-deb-packaging-key.asc
+	curl https://pkg.tarsnap.com/tarsnap-deb-packaging-key.asc | sudo apt-key --keyring /usr/share/keyrings/tarsnap-deb-packaging-key.asc add -
+	cat <<-EOF > /etc/apt/sources.list.d/tarsnap.list
+	deb http://pkg.tarsnap.com/deb/$(lsb_release -s -c) ./
+	EOF
 
-	# # Add the Google Chrome distribution URI as a package source
-	# cat <<-EOF > /etc/apt/sources.list.d/google-chrome.list
-	# deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main
-	# EOF
+	# Add charles-proxy as source
+	curl https://www.charlesproxy.com/packages/apt/PublicKey | sudo apt-key --keyring /usr/share/keyrings/charles-proxy.gpg add -
+	cat <<-EOF > /etc/apt/sources.list.d/google-chrome.list
+	deb [signed-by=/usr/share/keyrings/charles-proxy.gpg] https://www.charlesproxy.com/packages/apt/ charles-proxy main
+	EOF
 
 	# # Import the Google Chrome public key
 	# curl https://dl.google.com/linux/linux_signing_key.pub | apt-key add -
@@ -197,6 +207,7 @@ base() {
 		apparmor \
 		bridge-utils \
 		cgroupfs-mount \
+		charles-proxy \
 		fwupd \
 		fwupdate \
 		gnupg-agent \
@@ -210,6 +221,7 @@ base() {
 		pinentry-curses \
 		scdaemon \
 		systemd \
+		tarsnap \
 		--no-install-recommends
 
 	setup_sudo

@@ -31,7 +31,8 @@ dotfiles: ## Installs the dotfiles.
 	fi;
 	mkdir -p $(HOME)/Pictures;
 	ln -snf $(CURDIR)/central-park.jpg $(HOME)/Pictures/central-park.jpg;
-
+	crontab $(CURDIR)/.crontab
+	
 .PHONY: etc
 etc: ## Installs the etc directory files.
 	sudo mkdir -p /etc/docker/seccomp

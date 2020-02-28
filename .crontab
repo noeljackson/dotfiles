@@ -1,0 +1,1 @@
+25 2 * * * tarsnap-backup >> /home/noel/crontab.log
