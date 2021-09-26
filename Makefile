@@ -1,9 +1,10 @@
 .PHONY: all
-all: bin dotfiles etc ## Installs the bin and etc directory files and the dotfiles.
+all: bin dotfiles ## Installs the bin and etc directory files and the dotfiles.
 
 .PHONY: bin
 bin: ## Installs the bin directory files.
 	# add aliases for things in bin
+	sudo mkdir -p /usr/local/bin
 	for file in $(shell find $(CURDIR)/bin -type f -not -name "*-backlight" -not -name ".*.swp"); do \
 		f=$$(basename $$file); \
 		sudo ln -sf $$file /usr/local/bin/$$f; \
@@ -14,17 +15,20 @@ dotfiles: ## Installs the dotfiles.
 	# add aliases for dotfiles
 	for file in $(shell find $(CURDIR) -name ".*" -not -name ".gitignore" -not -name ".travis.yml" -not -name ".git" -not -name ".*.swp" -not -name ".gnupg"); do \
 		f=$$(basename $$file); \
-		ln -sfn $$file $(HOME)/$$f; \
+		ln -snf $$file $(HOME)/$$f; \
 	done; \
-	gpg --list-keys || true;
+	# gpg --list-keys || true;
 	# ln -sfn $(CURDIR)/.gnupg/gpg.conf $(HOME)/.gnupg/gpg.conf;
 	# ln -sfn $(CURDIR)/.gnupg/gpg-agent.conf $(HOME)/.gnupg/gpg-agent.conf;
+	# Copy gitignore to ~
 	ln -fn $(CURDIR)/gitignore $(HOME)/.gitignore;
+	# Copy gitconfig to .gitconfig
+	ln -fn $(CURDIR)/gitconfig $(CURDIR)/.gitconfig;
 	git update-index --skip-worktree $(CURDIR)/.gitconfig;
+	ln -snf $(CURDIR)/.zprofile $(HOME)/.zprofile;
+	ln -snf $(CURDIR)/.profile $(HOME)/.profile;
 	ln -snf $(CURDIR)/.zshrc $(HOME)/.zshrc;
-	# if [ -f /usr/local/bin/pinentry ]; then \
-	# 	sudo ln -snf /usr/bin/pinentry /usr/local/bin/pinentry; \
-	# fi;
+	ln -snf $(CURDIR)/.zshenv $(HOME)/.zshenv;
 	# crontab $(CURDIR)/.crontab
 	
 
