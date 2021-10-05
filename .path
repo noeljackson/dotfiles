@@ -1,0 +1,13 @@
+#!/bin/zsh
+
+# homebrew
+export PATH="/opt/homebrew/bin:$PATH"
+
+# go path
+export GOPATH="${HOME}/.go"
+
+# solana
+export PATH="$HOME/.local/share/solana/install/active_release/bin:$PATH"
+
+# rust path
+. "$HOME/.cargo/env"

@@ -93,7 +93,6 @@ install_devtools() {
 	brew install \
 		pulumi \
 		terraform;
-
 	# vs code
 	brew install --cask visual-studio-code
 	code --force --install-extension visualstudioexptteam.vscodeintellicode
@@ -249,9 +248,6 @@ main() {
 		base
 		install_tools
 		install_apps
-		# install_golang
-		# install_rust
-		# install_solana
 	elif [[ $cmd == "base" ]]; then
 		check_is_sudo
 		get_user
