@@ -60,17 +60,23 @@ base() {
 		curl;
 
 	echo "Install autocompletion..."
-    brew install zsh-completion && chmod -R go-w '$(brew --prefix)/share/zsh' && rm -f ~/.zcompdump && compinit
+    brew install --force zsh-completion && \
+		sudo chown -R $(whoami) $(brew --prefix)/share/ && \
+		sudo chown -R $(whoami):admin $(brew --prefix)/share/zsh && \
+		sudo chmod -R 755 $(brew --prefix)/share/zsh && \
+		sudo chmod -R 755 $(brew --prefix)/share
+	rm -f ~/.zcompdump; compinit
+
 	echo "Install starship and fonts..."
     brew tap homebrew/cask-fonts
     brew install --cask font-hack-nerd-font
     brew install starship
-
+	brew cleanup
 	brew doctor
 }
 
 install_devtools() {
-	brew cask install \
+	brew install --cask \
 		docker \
     	virtualbox \
     	charles;
@@ -87,6 +93,7 @@ install_devtools() {
 	brew install \
 		pulumi \
 		terraform;
+
 	# vs code
 	brew install --cask visual-studio-code
 	code --force --install-extension visualstudioexptteam.vscodeintellicode
@@ -102,8 +109,13 @@ install_apps() {
 		adobe-creative-cloud \
 		brave-browser \
 		discord \
+		exodus \
+		ledger-live \
+		nordvpn \
 		rectangle \
-		spotify
+		spotify \
+		tor-browser \
+		vlc
 
 	# install keyboard tools
 	brew tap homebrew/cask-drivers
@@ -152,6 +164,8 @@ setup_sudo() {
 install_rust() {
 	brew install rustup
 	rustup-init -y
+	rustup component add rustfmt
+	source $HOME/.cargo/env
 }
 
 install_solana() {
@@ -184,9 +198,9 @@ get_dotfiles() {
 
 
 install_tools() {
-	echo "Installing golang..."
-	echo
-	install_golang;
+	# echo "Installing golang..."
+	# echo
+	# install_golang;
 
 	echo
 	echo "Installing rust..."
@@ -197,6 +211,10 @@ install_tools() {
 	echo "Installing dev tools..."
 	echo
 	install_devtools
+
+	echo
+	echo "Installing solana..."
+	echo
 	install_solana
 }
 
@@ -223,16 +241,17 @@ main() {
 
 	
 	if [[ $cmd == "all" ]]; then
-		# check_is_sudo
-		# get_user
+		check_is_sudo
+		get_user
 
 		setup_sources
 	
 		base
 		install_tools
 		install_apps
-		install_golang
-		install_rust
+		# install_golang
+		# install_rust
+		# install_solana
 	elif [[ $cmd == "base" ]]; then
 		check_is_sudo
 		get_user
