@@ -10,6 +10,15 @@ bin: ## Installs the bin directory files.
 		sudo ln -sf $$file /usr/local/bin/$$f; \
 	done
 
+.PHONY: clamav
+clamav:
+	if [ -d "$(shell brew --prefix)/etc/clamav" ]; then \
+	for file in $(shell find $(CURDIR)/opt/homebrew/etc/clamav -type f); do \
+		f=$$(basename $$file); \
+		sudo ln -sf $$file $(shell brew --prefix)/etc/clamav/$$f; \
+	done; \
+	fi
+
 .PHONY: dotfiles
 dotfiles: ## Installs the dotfiles.
 	# add aliases for dotfiles
@@ -28,7 +37,7 @@ dotfiles: ## Installs the dotfiles.
 	# we use zprofile to source .zshrc
 	ln -snf $(CURDIR)/.zprofile $(HOME)/.zprofile;
 	ln -snf $(CURDIR)/.profile $(HOME)/.profile;
-	# crontab $(CURDIR)/.crontab
+	crontab $(CURDIR)/.crontab
 	
 
 .PHONY: test
