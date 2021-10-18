@@ -29,4 +29,4 @@ Session.vim
 .irssi/startup
 .rainbow_oauth
 .nginx/conf.d/*
-.config/solana
+.config/*

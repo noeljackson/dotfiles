@@ -74,10 +74,13 @@ base() {
     brew install starship
     brew cleanup
     brew doctor
+
+    
 }
 
 install_devtools() {
     typeset casks=(
+        android-studio
         charles
         docker
         virtualbox
