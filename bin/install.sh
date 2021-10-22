@@ -82,6 +82,7 @@ install_devtools() {
     typeset casks=(
         android-studio
         charles
+        cocoapods
         docker
         virtualbox
         visual-studio-code
@@ -108,7 +109,7 @@ install_devtools() {
             brew install $b
         )
     done
-    
+    sudo ln -s $(which node) /usr/local/bin/node
     # vs code extensions
     typeset vsextensions=(
         aaron-bond.better-comments
