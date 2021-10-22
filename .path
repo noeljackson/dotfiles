@@ -11,3 +11,15 @@ export PATH="$HOME/.local/share/solana/install/active_release/bin:$PATH"
 
 # rust path
 . "$HOME/.cargo/env"
+
+# node path
+NPM_PACKAGES="${HOME}/.npm-packages"
+export PATH="$NPM_PACKAGES/bin:$PATH"
+
+# Unset manpath so we can inherit from /etc/manpath via the `manpath` command
+unset MANPATH # delete if you already modified MANPATH elsewhere in your config
+export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
+
+# Android Studio Path
+export ANDROID_SDK=/Users/noel/Library/Android/sdkexport 
+export PATH=/Users/noel/Library/Android/sdk/platform-tools:$PATH
