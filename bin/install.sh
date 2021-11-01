@@ -99,7 +99,8 @@ install_devtools() {
         fnm
         git-lfs
         jq
-        node
+        mutagen-io/mutagen/mutagen
+        # node
         pulumi
 		terraform
     )
@@ -109,14 +110,25 @@ install_devtools() {
             brew install $b
         )
     done
-    sudo ln -s $(which node) /usr/local/bin/node
+    sudo ln -sf $(which node) /usr/local/bin/node
     # vs code extensions
     typeset vsextensions=(
         aaron-bond.better-comments
         shakram02.bash-beautify
         ms-azuretools.vscode-docker
+        ms-vscode.vscode-typescript-tslint-plugin
+        ms-vscode-remote.remote-containers
         esbenp.prettier-vscode
         visualstudioexptteam.vscodeintellicode
+        prisma.prisma
+        esbenp.prettier-vscode
+        graphql.vscode-graphql
+        dbaeumer.vscode-eslint
+        christian-kohler.npm-intellisense
+        eg2.vscode-npm-script
+        github.vscode-pull-request-github
+        angular.ng-template
+        
     )
     for e in $vsextensions
     do (
