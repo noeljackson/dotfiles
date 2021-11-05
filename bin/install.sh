@@ -74,11 +74,13 @@ base() {
     brew install starship
     brew cleanup
     brew doctor
-
+    
     
 }
 
 install_devtools() {
+    brew update
+
     typeset casks=(
         android-studio
         charles
@@ -86,7 +88,7 @@ install_devtools() {
         docker
         virtualbox
         visual-studio-code
-	)
+    )
     
     for cask in $casks
     do (
@@ -102,7 +104,7 @@ install_devtools() {
         mutagen-io/mutagen/mutagen
         # node
         pulumi
-		terraform
+        terraform
     )
     
     for b in $brews
@@ -110,7 +112,8 @@ install_devtools() {
             brew install $b
         )
     done
-    sudo ln -sf $(which node) /usr/local/bin/node
+    which fnm > /dev/null 2>&1 && fnm install --lts && which node > /dev/null 2>&1 && sudo ln -sf $(which node) /usr/local/bin/node
+
     # vs code extensions
     typeset vsextensions=(
         aaron-bond.better-comments
@@ -140,24 +143,32 @@ install_devtools() {
 
 install_apps() {
     brew update
+
     brew install clamav && \
     make clamav && \
     freshclam
     
-    brew install --cask \
-    1password \
-    ableton-live-suite \
-    adobe-creative-cloud \
-    brave-browser \
-    discord \
-    exodus \
-    ledger-live \
-    nordvpn \
-    rectangle \
-    spotify \
-    tor-browser \
-    vlc
-    
+    typeset caskapps=(
+        
+        1password
+        ableton-live-suite
+        adobe-creative-cloud
+        brave-browser
+        discord
+        exodus
+        ledger-live
+        nordvpn
+        rectangle
+        slack
+        spotify
+        tor-browser
+        vlc
+    )
+    for cask in $caskapps
+    do (
+            brew install --quiet --cask $cask
+        )
+    done
     # install keyboard tools
     brew tap homebrew/cask-drivers
     brew install --cask qmk-toolbox
