@@ -149,10 +149,10 @@ install_apps() {
     freshclam
     
     typeset caskapps=(
-        
         1password
         ableton-live-suite
         adobe-creative-cloud
+        backblaze
         brave-browser
         discord
         exodus
