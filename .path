@@ -23,3 +23,6 @@ export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
 # Android Studio Path
 export ANDROID_SDK=/Users/noel/Library/Android/sdkexport 
 export PATH=/Users/noel/Library/Android/sdk/platform-tools:$PATH
+
+# curl
+export PATH="/opt/homebrew/opt/curl/bin:$PATH"

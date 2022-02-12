@@ -13,9 +13,11 @@ eval "$(fnm env)"
 # zsh completions
 if type brew &>/dev/null; then
     FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
-
+	# for aws_completer
+	autoload bashcompinit && bashcompinit
     autoload -Uz compinit
     compinit
+	complete -C '$(brew --prefix)/bin/aws_completer' aws
 fi
 
 # source aliases, exports, path
