@@ -78,8 +78,24 @@ base() {
     
 }
 
+install_yubikey() {
+    typeset pkgs=(
+        gnupg
+        hopenpgp-tools
+        pinentry-mac
+        ykman
+        yubikey-personalization
+    )
+    for pkg in $pkgs
+    do (
+            brew install $pkg
+        )
+    done
+}
+
 install_devtools() {
     brew update
+    install_yubikey
 
     typeset casks=(
         android-studio
@@ -101,6 +117,7 @@ install_devtools() {
         fnm
         git-lfs
         jq
+        lima
         mutagen-io/mutagen/mutagen
         # node
         pulumi
@@ -131,6 +148,7 @@ install_devtools() {
         eg2.vscode-npm-script
         github.vscode-pull-request-github
         angular.ng-template
+        GitHub.copilot
         
     )
     for e in $vsextensions
@@ -150,16 +168,23 @@ install_apps() {
     
     typeset caskapps=(
         1password
+        1password-cli
         ableton-live-suite
         adobe-creative-cloud
+        authy
         backblaze
         brave-browser
+        clay
         discord
         exodus
+        keybase
         ledger-live
         nordvpn
+        omnifocus
         rectangle
+        rescuetime
         slack
+        sketch
         spotify
         tor-browser
         vlc
@@ -174,6 +199,20 @@ install_apps() {
     brew install --cask qmk-toolbox
     
     #TODO: install browser extensions programmatically
+    
+    typeset extensions=(
+        #mymind
+        nmgcefdhjpjefhgcpocffdlibknajbmj
+
+        # phantom
+        bfnaelmomeimhlpmgjnjophhpkkoljpa
+        # superhuman
+        dcgcnpooblobhncpnddnhoendgbnglpn
+
+
+    )
+    
+
 }
 
 # setup sudo for a user
@@ -313,6 +352,10 @@ main() {
         check_is_sudo
         
         install_tools "$2"
+        elif [[ $cmd == "yubikey" ]]; then
+        check_is_sudo
+        
+        install_yubikey
         elif [[ $cmd == "apps" ]]; then
         check_is_sudo
         get_user

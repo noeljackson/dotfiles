@@ -1,0 +1,8 @@
+#!/usr/bin/bash
+
+# Generate a master key
+gpg --expert --full-generate-key
+
+# store it on a USB device
+eval $(op signin my)
+

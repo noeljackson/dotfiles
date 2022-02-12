@@ -26,9 +26,9 @@ dotfiles: ## Installs the dotfiles.
 		f=$$(basename $$file); \
 		ln -snf $$file $(HOME)/$$f; \
 	done; \
-	# gpg --list-keys || true;
-	# ln -sfn $(CURDIR)/.gnupg/gpg.conf $(HOME)/.gnupg/gpg.conf;
-	# ln -sfn $(CURDIR)/.gnupg/gpg-agent.conf $(HOME)/.gnupg/gpg-agent.conf;
+	gpg --list-keys || true;
+	ln -sfn $(CURDIR)/.gnupg/gpg.conf $(HOME)/.gnupg/gpg.conf;
+	ln -sfn $(CURDIR)/.gnupg/gpg-agent.conf $(HOME)/.gnupg/gpg-agent.conf;
 	# Copy gitignore to ~
 	ln -fn $(CURDIR)/gitignore $(HOME)/.gitignore;
 	# Copy gitconfig to .gitconfig
