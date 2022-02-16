@@ -120,7 +120,6 @@ install_devtools() {
         lima
         mutagen-io/mutagen/mutagen
         # node
-        pulumi
         terraform
     )
     
@@ -177,6 +176,7 @@ install_apps() {
         clay
         discord
         exodus
+        iterm2
         keybase
         ledger-live
         nordvpn
