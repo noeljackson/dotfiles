@@ -28,3 +28,10 @@ for file in ~/.{aliases,path,exports}; do
 	fi
 done
 unset file
+
+unsetopt BEEP
+
+bindkey "[D" backward-word
+bindkey "[C" forward-word
+bindkey "^[a" beginning-of-line
+bindkey "^[e" end-of-line
