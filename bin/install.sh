@@ -173,6 +173,7 @@ install_apps() {
         authy
         backblaze
         brave-browser
+        carbon-copy-cloner
         clay
         discord
         exodus
