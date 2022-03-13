@@ -114,6 +114,7 @@ install_devtools() {
     
     typeset brews=(
         awscli
+        dopplerhq/cli/doppler
         fnm
         git-lfs
         jq
