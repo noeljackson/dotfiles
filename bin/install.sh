@@ -137,8 +137,9 @@ install_devtools() {
         aaron-bond.better-comments
         shakram02.bash-beautify
         ms-azuretools.vscode-docker
-        ms-vscode.vscode-typescript-tslint-plugin
+        ms-vscode.makefile-tools        
         ms-vscode-remote.remote-containers
+        ms-vscode.vscode-typescript-tslint-plugin
         esbenp.prettier-vscode
         visualstudioexptteam.vscodeintellicode
         prisma.prisma

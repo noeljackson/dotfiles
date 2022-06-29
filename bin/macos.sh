@@ -3,12 +3,15 @@
 # setup iCloud symlink
 ln -s ~/Library/Mobile\ Documents/com\~apple\~CloudDocs/ ~/iCloud
 
+# fix zsh startup errors
+
 # remove old CommandLineTools
 # to force upgrade
 sudo rm -rf /Library/Developer/CommandLineTools
-
 # install latest
 sudo xcode-select --install
+sudo xcode-select -s /Library/Developer/CommandLineTools
+
 
 # ln -s ~/Library/Mobile\ Documents/com\~apple\~CloudDocs/Downloads ~/Downloads
 
