@@ -1,4 +1,16 @@
-# #!/usr/bin/env bash
+#!/usr/bin/env bash
+
+# setup iCloud symlink
+ln -s ~/Library/Mobile\ Documents/com\~apple\~CloudDocs/ ~/iCloud
+
+# remove old CommandLineTools
+# to force upgrade
+sudo rm -rf /Library/Developer/CommandLineTools
+
+# install latest
+sudo xcode-select --install
+
+# ln -s ~/Library/Mobile\ Documents/com\~apple\~CloudDocs/Downloads ~/Downloads
 
 # # ~/.macos — https://mths.be/macos
 
@@ -882,3 +894,4 @@
 # 	killall "${app}" &> /dev/null
 # done
 # echo "Done. Note that some of these changes require a logout/restart to take effect."
+

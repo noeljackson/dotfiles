@@ -102,6 +102,7 @@ install_devtools() {
         charles
         cocoapods
         docker
+        ngrok
         virtualbox
         visual-studio-code
     )
