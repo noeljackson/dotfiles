@@ -36,6 +36,7 @@ dotfiles: ## Installs the dotfiles.
 	git update-index --skip-worktree $(CURDIR)/.gitconfig;
 	# we use zprofile to source .zshrc
 	ln -snf $(CURDIR)/.zprofile $(HOME)/.zprofile;
+	ln -snf $(CURDIR)/.zprofile $(HOME)/.zshenv;
 	ln -snf $(CURDIR)/.profile $(HOME)/.profile;
 	crontab $(CURDIR)/.crontab
 	

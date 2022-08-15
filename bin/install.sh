@@ -185,6 +185,7 @@ install_apps() {
         ledger-live
         nordvpn
         omnifocus
+        paw
         rectangle
         rescuetime
         slack
@@ -207,13 +208,8 @@ install_apps() {
     typeset extensions=(
         #mymind
         nmgcefdhjpjefhgcpocffdlibknajbmj
-
         # phantom
         bfnaelmomeimhlpmgjnjophhpkkoljpa
-        # superhuman
-        dcgcnpooblobhncpnddnhoendgbnglpn
-
-
     )
     
 
@@ -227,32 +223,10 @@ install_apps() {
 # so its pointless
 # i know what the fuck im doing ;)
 setup_sudo() {
-    # add user to sudoers
-    # adduser "$TARGET_USER" sudo
-    
-    # create docker group
-    # sudo groupadd docker
-    # sudo gpasswd -a "$TARGET_USER" docker
     echo "Setup Sudo for $TARGET_USER"
-    # add go path to secure path
-    # sudo \
-    # { \
-    # echo -e "Defaults	secure_path=\"/usr/local/go/bin:/home/${TARGET_USER}/.go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/share/bcc/tools:/home/${TARGET_USER}/.cargo/bin\""; \
-    # echo -e 'Defaults	env_keep += "ftp_proxy http_proxy https_proxy no_proxy GOPATH EDITOR"'; \
-    
     sudo touch /private/etc/sudoers.d/01_${TARGET_USER}
     sudo sh -c "echo '${TARGET_USER} ALL=(ALL) NOPASSWD:ALL' >> /private/etc/sudoers.d/01_${TARGET_USER}"
-    
-    #         root ALL=(ALL) ALL
-    # %admin  ALL=(ALL) NOPASSWD: ALL
-    # %wheel ALL=(ALL) NOPASSWD: ALL
-    # %wheel ALL=(ALL) NOPASSWD: ALL
-    # %sudo   ALL=(ALL) NOPASSWD: ALL
-    
-    # } >> /private/etc/sudoers.d/01_${USER};
-    
-    # TODO: setup downloads folder as tmpfs
-    
+    # TODO: setup downloads folder as tmpfs   
 }
 
 # install rust
