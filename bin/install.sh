@@ -181,6 +181,7 @@ install_apps() {
         clay
         discord
         exodus
+        handbrake
         iterm2
         keybase
         ledger-live
