@@ -130,6 +130,8 @@ install_devtools() {
             brew install $b
         )
     done
+
+    # setup fnm
     which fnm > /dev/null 2>&1 && fnm install --lts && which node > /dev/null 2>&1 && sudo ln -sf $(which node) /usr/local/bin/node
 
     # vs code extensions
@@ -151,7 +153,6 @@ install_devtools() {
         github.vscode-pull-request-github
         angular.ng-template
         GitHub.copilot
-        
     )
     for e in $vsextensions
     do (
@@ -193,6 +194,7 @@ install_apps() {
         spotify
         tor-browser
         vlc
+        whatsapp
     )
     for cask in $caskapps
     do (
