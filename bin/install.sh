@@ -102,7 +102,9 @@ install_devtools() {
         charles
         cocoapods
         docker
+        leapp
         ngrok
+        session-manager-plugin
         virtualbox
         visual-studio-code
     )
@@ -122,6 +124,7 @@ install_devtools() {
         lima
         mutagen-io/mutagen/mutagen
         # node
+        Noovolari/brew/leapp-cli-darwin-arm64
         terraform
     )
     
@@ -194,6 +197,7 @@ install_apps() {
         sketch
         spotify
         tor-browser
+        transmission
         vlc
         whatsapp
     )
