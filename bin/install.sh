@@ -193,6 +193,7 @@ install_apps() {
         paw
         rectangle
         rescuetime
+        roam-research
         slack
         sketch
         spotify
@@ -200,6 +201,7 @@ install_apps() {
         transmission
         vlc
         whatsapp
+        yubico-yubikey-manager
     )
     for cask in $caskapps
     do (

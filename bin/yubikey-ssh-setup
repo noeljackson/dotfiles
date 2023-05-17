@@ -86,6 +86,8 @@ setup_gnupghome(){
 	# echo "Copying master key from Google Cloud Storage..."
 	# gsutil -m cp gs://misc.j3ss.co/dotfiles/.gnupg/* "${GNUPGHOME}/"
 
+	cp "${HOME}/gpgmasterkey.txt" "${GNUPGHOME}/"
+
 	# Re-import the secret keys.
 	gpg --import "${GNUPGHOME}/secring.gpg"
 
