@@ -42,6 +42,9 @@ MANAGEMENT_KEY=${MANAGEMENT_KEY:=}
 # fi
 
 setup(){
+	# enable smartcard support in macos
+	sc_auth pairing_ui -s enable
+
 	# If the PIN is set, change it.
 	if [ "$PIN" -ne "$OLD_PIN" ]; then
 		ykman piv access change-pin --pin $OLD_PIN --new-pin $PIN
@@ -53,6 +56,10 @@ setup(){
 
 	if [ -n "$MANAGEMENT_KEY" ]; then
 		ykman piv access change-management-key -g --management-key $MANAGEMENT_KEY
+	fi
+
+	if [ -n "FORCE" ]; then
+		sc_auth pairing_ui -f
 	fi
 }
 setup
