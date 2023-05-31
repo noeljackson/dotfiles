@@ -200,6 +200,7 @@ install_apps() {
         tor-browser
         transmission
         vlc
+        utm
         whatsapp
         yubico-yubikey-manager
     )

@@ -59,6 +59,7 @@ setup(){
 	fi
 
 	if [ -n "FORCE" ]; then
+		sc_auth pairing_ui -s enable
 		sc_auth pairing_ui -f
 	fi
 }
