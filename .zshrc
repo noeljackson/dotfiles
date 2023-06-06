@@ -20,6 +20,14 @@ if type brew &>/dev/null; then
 	complete -C '$(brew --prefix)/bin/aws_completer' aws
 fi
 
+# ngrok autocompletion
+if command -v ngrok &>/dev/null; then
+	eval "$(ngrok completion)"
+fi
+
+source "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
+source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
+
 # source aliases, exports, path
 for file in ~/.{aliases,path,exports}; do
 	if [[ -r "$file" ]] && [[ -f "$file" ]]; then
