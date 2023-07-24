@@ -103,6 +103,7 @@ install_devtools() {
         cocoapods
         docker
         leapp
+        multipass
         ngrok
         session-manager-plugin
         virtualbox

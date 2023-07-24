@@ -20,6 +20,12 @@ if type brew &>/dev/null; then
 	complete -C '$(brew --prefix)/bin/aws_completer' aws
 fi
 
+# go-jira autocompletion
+if command -v jira &>/dev/null; then
+	eval "$(jira --completion-script-bash)"
+fi
+
+
 # ngrok autocompletion
 if command -v ngrok &>/dev/null; then
 	eval "$(ngrok completion)"
