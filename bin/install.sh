@@ -105,6 +105,7 @@ install_devtools() {
         leapp
         multipass
         ngrok
+        orbstack
         session-manager-plugin
         virtualbox
         visual-studio-code
