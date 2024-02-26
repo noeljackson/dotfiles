@@ -73,8 +73,7 @@ base() {
     brew install --cask font-hack-nerd-font
     brew install starship
     brew cleanup
-    brew doctor
-    
+    brew doctor    
     
 }
 
@@ -98,16 +97,10 @@ install_devtools() {
     install_yubikey
 
     typeset casks=(
-        android-studio
-        charles
-        cocoapods
-        docker
         leapp
-        multipass
         ngrok
         orbstack
         session-manager-plugin
-        virtualbox
         visual-studio-code
     )
     
@@ -123,11 +116,9 @@ install_devtools() {
         fnm
         git-lfs
         jq
-        lima
-        mutagen-io/mutagen/mutagen
         # node
         Noovolari/brew/leapp-cli-darwin-arm64
-        terraform
+        pyenv
     )
     
     for b in $brews
@@ -138,32 +129,6 @@ install_devtools() {
 
     # setup fnm
     which fnm > /dev/null 2>&1 && fnm install --lts && which node > /dev/null 2>&1 && sudo ln -sf $(which node) /usr/local/bin/node
-
-    # vs code extensions
-    typeset vsextensions=(
-        aaron-bond.better-comments
-        shakram02.bash-beautify
-        ms-azuretools.vscode-docker
-        ms-vscode.makefile-tools        
-        ms-vscode-remote.remote-containers
-        ms-vscode.vscode-typescript-tslint-plugin
-        esbenp.prettier-vscode
-        visualstudioexptteam.vscodeintellicode
-        prisma.prisma
-        esbenp.prettier-vscode
-        graphql.vscode-graphql
-        dbaeumer.vscode-eslint
-        christian-kohler.npm-intellisense
-        eg2.vscode-npm-script
-        github.vscode-pull-request-github
-        angular.ng-template
-        GitHub.copilot
-    )
-    for e in $vsextensions
-    do (
-            code --force --install-extension  $e
-        )
-    done
     
 }
 
@@ -181,29 +146,18 @@ install_apps() {
         adobe-creative-cloud
         authy
         backblaze
-        brave-browser
-        carbon-copy-cloner
-        clay
         discord
         exodus
-        handbrake
-        iterm2
         keybase
         ledger-live
         nordvpn
-        omnifocus
-        paw
+        raycast
         rectangle
-        rescuetime
-        roam-research
-        slack
-        sketch
         spotify
+        telegram
         tor-browser
         transmission
         vlc
-        utm
-        whatsapp
         yubico-yubikey-manager
     )
     for cask in $caskapps
@@ -211,19 +165,9 @@ install_apps() {
             brew install --quiet --cask $cask
         )
     done
+    
     # install keyboard tools
-    brew tap homebrew/cask-drivers
     brew install --cask qmk-toolbox
-    
-    #TODO: install browser extensions programmatically
-    
-    typeset extensions=(
-        #mymind
-        nmgcefdhjpjefhgcpocffdlibknajbmj
-        # phantom
-        bfnaelmomeimhlpmgjnjophhpkkoljpa
-    )
-    
 
 }
 
@@ -247,12 +191,6 @@ install_rust() {
     rustup-init -y
     rustup component add rustfmt
     source $HOME/.cargo/env
-}
-
-install_solana() {
-    #TODO: Check for rust installation
-    #TODO: Build from source
-    sh -c "$(curl -sSfL https://release.solana.com/v$(curl -Ls -o /dev/null -w %{url_effective} https://github.com/solana-labs/solana/releases/latest| sed -E 's/.+\/tag\/v(.+)/\1/')/install)"
 }
 
 
@@ -292,11 +230,6 @@ install_tools() {
     echo "Installing dev tools..."
     echo
     install_devtools
-    
-    echo
-    echo "Installing solana..."
-    echo
-    install_solana
 }
 
 
@@ -310,7 +243,6 @@ usage() {
     echo "  dotfiles                            - get dotfiles"
     # echo "  golang                              - install golang and packages"
     echo "  rust                                - install rust"
-    echo "  solana                              - install solana"
 }
 
 main() {
