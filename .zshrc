@@ -6,6 +6,8 @@ case $- in
 	*) return;;
 esac
 
+
+
 eval "$(/opt/homebrew/bin/brew shellenv)"
 eval "$(starship init zsh)"
 eval "$(fnm env)"
@@ -20,10 +22,6 @@ if type brew &>/dev/null; then
 	complete -C '$(brew --prefix)/bin/aws_completer' aws
 fi
 
-# go-jira autocompletion
-if command -v jira &>/dev/null; then
-	eval "$(jira --completion-script-bash)"
-fi
 
 
 # ngrok autocompletion
@@ -75,3 +73,7 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
+
+# set -a
+# source <(doppler secrets download --no-file --format env)
+# set +a
