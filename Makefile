@@ -40,7 +40,7 @@ dotfiles: ## Installs the dotfiles.
 	ln -snf $(CURDIR)/.profile $(HOME)/.profile;
 	crontab $(CURDIR)/.crontab
 	ln -snf $(CURDIR)/.tmux.conf $(HOME)/.tmux.conf;
-	tmux source ~/.tmux.conf
+	
 
 .PHONY: test
 test: shellcheck ## Runs all the tests on the files in the repository.

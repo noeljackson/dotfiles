@@ -100,7 +100,6 @@ install_devtools() {
         leapp
         ngrok
         orbstack
-        session-manager-plugin
         visual-studio-code
     )
 
