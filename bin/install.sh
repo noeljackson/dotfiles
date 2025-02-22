@@ -149,7 +149,6 @@ install_apps() {
         nordvpn
         raycast
         rectangle
-        spotify
         telegram
         tor-browser
         transmission
