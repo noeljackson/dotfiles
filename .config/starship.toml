@@ -1,0 +1,7 @@
+[conda]
+# Enable the conda module, displaying the current conda environment.
+format = "via [$symbol$environment]($style) "
+# Optionally, you can specify a custom symbol to prefix the environment name.
+symbol = "🐍 "
+# By default, the base environment is not shown. Set this to false to always display the environment name.
+ignore_base = false

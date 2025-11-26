@@ -211,9 +211,9 @@ get_dotfiles() {
 
 
 install_tools() {
-    # echo "Installing golang..."
-    # echo
-    # install_golang;
+    echo "Installing golang..."
+    echo
+    install_golang;
 
     echo
     echo "Installing rust..."
@@ -235,8 +235,22 @@ usage() {
     echo "  tools                               - install golang, rust, and scripts"
     echo "  apps                               	- desktop apps"
     echo "  dotfiles                            - get dotfiles"
-    # echo "  golang                              - install golang and packages"
+    echo "  golang                              - install golang and packages"
     echo "  rust                                - install rust"
+}
+
+# install golang
+install_golang() {
+    brew install go
+
+    # Set GOPATH
+    export GOPATH="$HOME/go"
+    export PATH="$PATH:$GOPATH/bin"
+
+    # Install common Go tools
+    go install golang.org/x/tools/gopls@latest
+    go install golang.org/x/tools/cmd/goimports@latest
+    go install github.com/go-delve/delve/cmd/dlv@latest
 }
 
 main() {

@@ -4,10 +4,12 @@
 alias dl="cd ~/Downloads"
 alias g="git"
 alias h="history"
-alias gc=". /usr/local/bin/gitdate && git commit -v "
+alias k="kubectl"
+alias gc="git commit -v "
+alias ga="git add"
 
 alias interpreter="doppler run -- interpreter"
-alias dlocal="doppler run --scope ~ --project dotfiles --config local -- "
+alias dop="doppler run --scope ~ --project dotfiles --config local -- "
 
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
@@ -24,7 +26,7 @@ alias l="ls -lhF ${colorflag}"
 # shellcheck disable=SC2139
 alias la="ls -lahF ${colorflag}"
 
-# List only directories
+# List only directori es
 # shellcheck disable=SC2139
 alias lsd="ls -lhF ${colorflag} | grep --color=never '^d'"
 
@@ -63,3 +65,7 @@ alias cp='cp -i'
 
 # move file interactive
 alias mv='mv -i'
+
+
+# connections
+alias sshultra="sshfs violet@reindeer.usbx.me:/home/violet/ /Volumes/violet"

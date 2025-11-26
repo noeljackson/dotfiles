@@ -116,7 +116,7 @@ tags
 *.dll
 
 # Fortran module files
-*.mod
+# *.mod
 
 # Compiled Static libraries
 *.lai
