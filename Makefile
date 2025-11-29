@@ -29,6 +29,7 @@ dotfiles: ## Installs the dotfiles.
 	gpg --list-keys || true;
 	ln -sfn $(CURDIR)/.gnupg/gpg.conf $(HOME)/.gnupg/gpg.conf;
 	ln -sfn $(CURDIR)/.gnupg/gpg-agent.conf $(HOME)/.gnupg/gpg-agent.conf;
+	ln -sfn $(CURDIR)/.gnupg/scdaemon.conf $(HOME)/.gnupg/scdaemon.conf;
 	# Copy gitignore to ~
 	ln -fn $(CURDIR)/gitignore $(HOME)/.gitignore;
 	# Copy gitconfig to .gitconfig
