@@ -34,7 +34,6 @@ dotfiles: ## Installs the dotfiles.
 	ln -fn $(CURDIR)/gitignore $(HOME)/.gitignore;
 	# Copy gitconfig to .gitconfig
 	ln -fn $(CURDIR)/gitconfig $(CURDIR)/.gitconfig;
-	git update-index --skip-worktree $(CURDIR)/.gitconfig;
 	ln -snf $(CURDIR)/.zprofile $(HOME)/.zprofile;
 	ln -snf $(CURDIR)/.profile $(HOME)/.profile;
 	crontab $(CURDIR)/.crontab
