@@ -16,7 +16,6 @@ gpgconf --launch gpg-agent 2>/dev/null || true
 # Brew
 eval "$(/opt/homebrew/bin/brew shellenv)"
 eval "$(starship init zsh)"
-eval "$(fnm env --use-on-cd)"
 
 # zsh completions
 if type brew &>/dev/null; then
@@ -107,4 +106,7 @@ export NVM_DIR="$HOME/.nvm"
 export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+# Added by OrbStack: command-line tools and integration
+source ~/.orbstack/shell/init.zsh 2>/dev/null || :
 
